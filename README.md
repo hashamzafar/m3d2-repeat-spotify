@@ -1,1 +1,1 @@
-# m3d2-repeat-spotify
+# Repeat-m3d2-spotify
