@@ -90,7 +90,7 @@
 
         <div class="container-fluid coverimage">
           <div class="row">
-             <img src="https://picsum.photos/200/300" alt="">
+            <img src="https://picsum.photos/200/300" alt="" />
           </div>
         </div>
 
@@ -107,18 +107,9 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="jumbotron jumbotron-fluid">
-              <div class="container">
-                <h1 class="display-4">Fluid jumbotron</h1>
-                <p class="lead">
-                  This is a modified jumbotron that occupies the entire
-                  horizontal space of its parent.
-                </p>
-              </div>
-            </div>
-            <div class="col-12 col-md-10 col-lg-10 mt-5">
-              <!-- <h2 class="titleMain">STING</h2>
+          <div id="artistTitle" class="row">
+            <!-- <div class="col-12 col-md-10 col-lg-10 mt-5">
+              <h2 class="titleMain">STING</h2>
               <div id="followers">1154386 followers</div>
               <div class="d-flex justify-content-center" id="button-container">
                 <button class="btn btn-success mr-2 mainButton" id="playButton">
@@ -130,13 +121,13 @@
                 >
                   FOLLOW
                 </button>
-              </div> -->
-            </div>
+              </div>
+            </div> -->
           </div>
           <div class="row mb-3">
             <div class="col-10 offset-1 col-md-10 col-lg-10 p-0">
               <div class="mt-4 d-flex justify-content-start">
-                <h2 class="text-white font-weight-bold">Tracks</h2>
+                <h2 class="text-white font-weight-bold">ALBUNS</h2>
               </div>
               <div class="pt-5 mb-5">
                 <div class="row" id="apiLoaded">
@@ -280,8 +271,52 @@
           `https://striveschool-api.herokuapp.com/api/deezer/search?q=queen`
         )
           .then((response) => response.json())
-          .then((singer) => {
-            console.log("this is clg of singer", singer)
+          .then((data) => {
+            console.log("this is clg of singer", data)
+            const row = document.getElementById("apiLoaded")
+            const titleRow = document.getElementById("artistTitle")
+
+            row.innerHTML = ""
+            titleRow.innerHTML = ""
+            
+            ${}console.log(data.data.album)
+
+            data.data.forEach((album) => {
+              row.innerHTML += `
+                                  <div class="col-sm-auto col-md-auto text-center mb-5">
+                                    <a href="/album_page.html">
+                                      <img
+                                        class="img-fluid"
+                                        src="${album.album.cover_medium}"
+                                        alt="1"
+                                      />
+                                    </a>
+                                    <p>
+                                      <a href="#"> Track: ${album.album.title} </a><br />
+                                      <a href="#"> Album: ${album.title} </a>
+                                    </p>
+                                  </div>
+                                  `
+
+
+              titleRow.innerHTML = `
+                                    <div class="col-12 col-md-10 col-lg-10 mt-5">
+                                                                      <h2 class="titleMain">${album.artist.title}</h2>
+                                                                      <div id="followers">1154386 followers</div>
+                                                                      <div class="d-flex justify-content-center" id="button-container">
+                                                                        <button class="btn btn-success mr-2 mainButton" id="playButton">
+                                                                          PLAY
+                                                                        </button>
+                                                                        <button
+                                                                          class="btn btn-outline-light mainButton"
+                                                                          id="followButton"
+                                                                        >
+                                                                          FOLLOW
+                                                                        </button>
+                                                                      </div>
+                                                                    </div>
+                                                                    `                                                                   
+            })
           })
       }
     </script>
