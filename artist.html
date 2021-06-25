@@ -260,15 +260,15 @@
 
     <script>
       window.onload = function () {
-        let artistId = new URLSearchParams(window.location.search).get("id")
-        //console.log('here is the name', artistName)
-        artist()
+        let artistName = new URLSearchParams(window.location.search).get("name").toLowerCase()
+        console.log('here is the name', artistName)
+        artist(artistName)
       }
       // console.log("here here ", artistName)
 
-      const artist = () => {
+      const artist = (name) => {
         fetch(
-          `https://striveschool-api.herokuapp.com/api/deezer/search?q=queen`
+          `https://striveschool-api.herokuapp.com/api/deezer/search?q=${name}`
         )
           .then((response) => response.json())
           .then((data) => {
@@ -280,8 +280,11 @@
             titleRow.innerHTML = ""
             
             console.log(data.data.album)
-
+            const coverImage = document.querySelector('.coverimage img')
+            console.log(coverImage);
             data.data.forEach((album) => {
+              coverImage.src = album.album.cover_xl
+
               row.innerHTML += `
                                   <div class="col-sm-auto col-md-auto text-center mb-5">
                                     <a href="/album_page.html">
