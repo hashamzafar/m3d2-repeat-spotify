@@ -266,14 +266,30 @@
       const listContainer = document.querySelector('#trackList')
       listContainer.innerHTML = ''
       tracks.forEach(track => {
+        // console.log(track.prview);
         listContainer.innerHTML += `
         <div class="py-3 trackHover">
+          <a href="#">
+              <audio class='audio' src="${track.preview}" preload="auto"></audio>
+              <img 
+                src="playerbuttons/Play.png" 
+                alt="play"
+                onclick="playMusic(event)"
+              />
+            </a>
                   <a href="#" class="card-title trackHover px-3" style="color: white">${track.title}</a>
                   <small class="duration pr-3" style="color: white">
-                    ${Math.floor(track.duration/60)}:${track.duration%60}
+                    ${Math.floor(track.duration / 60)}:${track.duration % 60}
                   </small>
                 </div>`
       })
+    }
+
+    const playMusic = async (e)  => {
+      const audio = e.currentTarget.closest('div').querySelector('audio')
+      audio.play()
+   
+
     }
 
 

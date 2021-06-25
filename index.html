@@ -183,7 +183,12 @@
               <img src="playerbuttons/Previous.png" alt="previous" />
             </a>
             <a href="#">
-              <img src="playerbuttons/Play.png" alt="play" />
+              <audio id="sound1" src="" preload="auto"></audio>
+              <img 
+                src="playerbuttons/Play.png" 
+                alt="play"
+                onclick="playMusic()"
+              />
             </a>
             <a href="#">
               <img src="playerbuttons/Next.png" alt="next" />
@@ -259,7 +264,7 @@
 
 
 
-
+     
 
       const search = (q = query) => {
 
@@ -272,20 +277,25 @@
             let row = document.querySelector(".rowParent")
             row.innerHTML = ""
             document.querySelector('#searchResults > h2').innerText = query.toUpperCase()
+            const audioPreview = document.querySelector('#sound1')
+            console.log(audioPreview);
             fetchedAlbums?.forEach((song) => {
-              
-          
+              audioPreview.src = song.preview
+              // console.log(song);
               row.innerHTML += card(song)
             })
           })
           .catch((err) => {
             console.error(err)
           })
+        }
+        window.onload = search()
+        
+        
+      const playMusic = () => {
+        const audio = document.querySelector('#sound1').play()
+        
       }
-      window.onload = search()
-
-
-
 
     </script>
   </body>
